@@ -20,8 +20,8 @@ support basic location and background locating
 3. Append the following lines to `android/settings.gradle`:
   	
 	```
-	include ':react-native-share'
-	project(':react-native-share').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-yunpeng-amaplocation/android')
+	include ':react-native-yunpeng-amaplocation'
+	project(':react-native-yunpeng-amaplocation').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-yunpeng-amaplocation/android')
 	```
   	
 4. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
