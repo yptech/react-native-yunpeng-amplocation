@@ -55,8 +55,6 @@ public class YPAmapLocationModule extends ReactContextBaseJavaModule {
         Config config = new Config();
         if (options.hasKey("notificationTitle")) config.setNotificationTitle(options.getString("notificationTitle"));
         if (options.hasKey("notificationText")) config.setNotificationText(options.getString("notificationText"));
-        if (options.hasKey("notificationIconLarge")) config.setNotificationIconLarge(options.getString("notificationIconLarge"));
-        if (options.hasKey("notificationIconSmall")) config.setNotificationIconSmall(options.getString("notificationIconSmall"));
         if (options.hasKey("notificationIconColor")) config.setNotificationIconColor(options.getString("notificationIconColor"));
         if (options.hasKey("stopOnTerminate")) config.setStopOnTerminate(options.getBoolean("stopOnTerminate"));
         if (options.hasKey("startOnBoot")) config.setStartOnBoot(options.getBoolean("startOnBoot"));

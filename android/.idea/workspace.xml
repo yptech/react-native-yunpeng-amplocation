@@ -116,8 +116,8 @@
       <file leaf-file-name="YPAmapLocationModule.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/yunpeng/amaplocation/YPAmapLocationModule.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.19753087">
-              <caret line="137" column="29" selection-start-line="137" selection-start-column="20" selection-end-line="137" selection-end-column="29" />
+            <state vertical-scroll-proportion="0.65843624">
+              <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -1042,11 +1042,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/yunpeng/amaplocation/YPAmapLocationModule.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/yunpeng/amaplocation/util/AmapUtils.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/yunpeng/amaplocation/util/HttpPostService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/yunpeng/amaplocation/sqlite/Config.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/yunpeng/amaplocation/sqlite/LocationContract.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/yunpeng/amaplocation/YPAmapLocationModule.java" />
       </list>
     </option>
   </component>
@@ -1492,8 +1492,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/yunpeng/amaplocation/YPAmapLocationModule.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19753087">
-          <caret line="137" column="29" selection-start-line="137" selection-start-column="20" selection-end-line="137" selection-end-column="29" />
+        <state vertical-scroll-proportion="0.65843624">
+          <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
           <folding />
         </state>
       </provider>
