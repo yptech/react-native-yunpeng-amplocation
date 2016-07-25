@@ -1,0 +1,22 @@
+{
+  "name": "react-native-yunpeng-amaplocation",
+  "version": "1.0.0",
+  "description": "react native amaplocation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "geolocation",
+    "position",
+    "location",
+    "tracking",
+    "background",
+    "react",
+    "react-native",
+    "react-component",
+    "android"
+  ],
+  "author": "m2mbob",
+  "license": "Apache-2.0"
+}
