@@ -18,16 +18,20 @@ support basic location and background locating
   - Add `import com.yunpeng.amaplocation.YPAmapLocationPackage;` to the imports at the top of the file
   - Add `new YPAmapLocationPackage()` to the list returned by the `getPackages()` method
 3. Append the following lines to `android/settings.gradle`:
+  	
   	```
   	include ':react-native-share'
   	project(':react-native-share').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-yunpeng-amaplocation/android')
   	```
+  	
 4. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
 
     	```
         compile project(':react-native-yunpeng-amaplocation')
     	```
+    	
 5. add android permission
+			
 			```
 			<!--用于进行网络定位-->
 			<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
@@ -46,10 +50,11 @@ support basic location and background locating
 			<!--写入扩展存储，向扩展卡写入数据，用于写入缓存定位数据-->
 			<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
 			```
+			
 6. add amap key in application
+				
 				```
-				<meta-data android:name="com.amap.api.v2.apikey" android:value="key">//开发者申请的key      
-             	</meta-data>
+				<meta-data android:name="com.amap.api.v2.apikey" android:value="key"></meta-data>
 				```
 
 ## Usage
@@ -78,7 +83,9 @@ componentWillMount() {
     })
 }
 ```
+
 2. location
+	
 	```
 	YPAmapLocation.getCurrentPosition({})
 		.then((position) => {
@@ -87,7 +94,9 @@ componentWillMount() {
             console.log(err);
         })
 	```
+	
 3. background Observing
+		
 		```
 		// start
 		YPAmapLocation.startObserving()
@@ -96,5 +105,5 @@ componentWillMount() {
 		    });
 
 		// stop
-	    YPAmapLocation.stopObserving();
+	    	YPAmapLocation.stopObserving();
 		```
