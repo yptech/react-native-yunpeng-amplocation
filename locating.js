@@ -5,20 +5,21 @@ import {
 	Component
 } from 'react';
 
-export default class Locating extends Component {
-	startObserving() {
-		return NativeModules.YPAmapLocation.startObserving();
-	}
-	
-	stopObserving() {
-		return NativeModules.YPAmapLocation.stopObserving();
-	}
-	
-	getCurrentPosition(options) {
-		return NativeModules.YPAmapLocation.getCurrentPosition(options);
-	}
-	
-	configure(options) {
+let Locating = {
+	startObserving: function () {
+		return NativeModules.YPAMapLocation.startObserving();
+	},
+
+	stopObserving: function () {
+		return NativeModules.YPAMapLocation.stopObserving();
+	},
+
+	getCurrentPosition: function (options) {
+		return NativeModules.YPAMapLocation.getCurrentPosition(options);
+	},
+
+	configure: function (options) {
 		this.options = options;
-	}
+	},
 }
+export default Locating;

@@ -9,7 +9,7 @@
 
 #import <AMapLocationKit/AMapLocationKit.h>
 
-#import "RCTAMapLocation.h"
+#import "YPAMapLocation.h"
 #import "RCTBridge.h"
 #import "RCTConvert.h"
 #import "RCTEventDispatcher.h"
@@ -93,11 +93,11 @@ static NSDictionary<NSString *, id> *KKRCTPositionError(KKRCTPositionErrorCode c
 
 @end
 
-@interface RCTAMapLocation () <AMapLocationManagerDelegate>
+@interface YPAMapLocation () <AMapLocationManagerDelegate>
 
 @end
 
-@implementation RCTAMapLocation
+@implementation YPAMapLocation
 {
     AMapLocationManager *_locationManager;
     NSDictionary<NSString *, id> *_lastLocationEvent;
@@ -106,7 +106,7 @@ static NSDictionary<NSString *, id> *KKRCTPositionError(KKRCTPositionErrorCode c
     KKLocationOptions _observerOptions;
 }
 
-RCT_EXPORT_MODULE(YYAMapLocationObserver);
+RCT_EXPORT_MODULE(YPAMapLocation);
 
 @synthesize bridge = _bridge;
 
@@ -142,7 +142,7 @@ RCT_EXPORT_MODULE(YYAMapLocationObserver);
 {
     KKLocationRequest *request = timer.userInfo;
     NSString *message = [NSString stringWithFormat: @"Unable to fetch location within %zds.", (NSInteger)(timer.timeInterval * 1000.0)];
-    request.reject(@[KKRCTPositionError(KKRCTPositionErrorTimeout, message)]);
+    request.reject([NSString stringWithFormat:@"%ld", KKRCTPositionErrorTimeout], message, [NSError errorWithDomain:message code:KKRCTPositionErrorTimeout userInfo:nil]);
     [_pendingRequests removeObject:request];
     
     // Stop updating if no pending requests
@@ -153,7 +153,7 @@ RCT_EXPORT_MODULE(YYAMapLocationObserver);
 
 #pragma mark - Public API
 
-RCT_EXPORT_METHOD(startObserving, options:(KKLocationOptions)options resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_REMAP_METHOD(startObserving, startObserving:(KKLocationOptions)options resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     [self checkLocationConfig];
     
@@ -167,10 +167,10 @@ RCT_EXPORT_METHOD(startObserving, options:(KKLocationOptions)options resolver:(R
     [_locationManager setPausesLocationUpdatesAutomatically:NO];
     [self beginLocationUpdatesWithDesiredAccuracy:_observerOptions.accuracy];
     _observingLocation = YES;
-    resolve(YES);
+    resolve(nil);
 }
 
-RCT_EXPORT_METHOD(stopObserving, resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_REMAP_METHOD(stopObserving, resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     // Stop observing
     _observingLocation = NO;
@@ -178,28 +178,22 @@ RCT_EXPORT_METHOD(stopObserving, resolver:(RCTPromiseResolveBlock)resolve reject
     // Stop updating if no pending requests
     if (_pendingRequests.count == 0) {
         [_locationManager stopUpdatingLocation];
-    	resolve(YES);
+    	resolve(nil);
     }
 }
 
-RCT_EXPORT_METHOD(getCurrentPosition, options:(KKLocationOptions)options
+RCT_REMAP_METHOD(getCurrentPosition, getCurrentPosition:(KKLocationOptions)options
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
     [self checkLocationConfig];
-    _resolve = resovle;
-    _reject = reject;
     if (![CLLocationManager locationServicesEnabled]) {
-    	reject(@[
-                 KKRCTPositionError(KKRCTPositionErrorUnavailable, @"Location services disabled.")
-                 ]);
+    	reject([NSString stringWithFormat:@"%ld", KKRCTPositionErrorUnavailable], @"Location services disabled.", [NSError errorWithDomain:@"Location services disabled." code:KKRCTPositionErrorUnavailable userInfo:nil]);
      	return;
     }
     
     if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied) {
-        reject(@[
-                 KKRCTPositionError(KKRCTPositionErrorDenied, nil)
-                 ]);
+        reject([NSString stringWithFormat:@"%ld", KKRCTPositionErrorDenied], @"Location services denied.", [NSError errorWithDomain:@"Location services denied." code:KKRCTPositionErrorDenied userInfo:nil]);
         return;
     }
     
@@ -209,7 +203,7 @@ RCT_EXPORT_METHOD(getCurrentPosition, options:(KKLocationOptions)options
         [_lastLocationEvent[@"coords"][@"accuracy"] doubleValue] <= options.accuracy) {
         
         // Call success block with most recent known location
-        resolve(@[_lastLocationEvent]);
+        resolve(_lastLocationEvent);
         return;
     }
     
@@ -261,13 +255,11 @@ RCT_EXPORT_METHOD(getCurrentPosition, options:(KKLocationOptions)options
     if (_observingLocation) {
         [_bridge.eventDispatcher sendDeviceEventWithName:@"yyAMapLocationDidChange"
                                                     body:_lastLocationEvent];
-    } else {
-    	_resovle(_lastLocationEvent);
     }
     
     // Fire all queued callbacks
     for (KKLocationRequest *request in _pendingRequests) {
-        request.resolve(@[_lastLocationEvent]);
+        request.resolve(_lastLocationEvent);
         [request.timeoutTimer invalidate];
     }
     [_pendingRequests removeAllObjects];
@@ -310,7 +302,7 @@ RCT_EXPORT_METHOD(getCurrentPosition, options:(KKLocationOptions)options
     
     // Fire all queued error callbacks
     for (KKLocationRequest *request in _pendingRequests) {
-        request.reject(@[jsError]);
+        request.reject([NSString stringWithFormat:@"%ld", error.code], error.domain, error);
         [request.timeoutTimer invalidate];
     }
     [_pendingRequests removeAllObjects];

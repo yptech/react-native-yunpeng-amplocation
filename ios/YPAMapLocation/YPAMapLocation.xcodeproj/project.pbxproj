@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A5D194991CF83AB100226912 /* AMapLocationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D194961CF83AB100226912 /* AMapLocationKit.framework */; };
-		A5D1949A1CF83AB100226912 /* RCTAMapLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = A5D194981CF83AB100226912 /* RCTAMapLocation.m */; };
+		A5D1949A1CF83AB100226912 /* YPAMapLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = A5D194981CF83AB100226912 /* YPAMapLocation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,8 +27,8 @@
 /* Begin PBXFileReference section */
 		A52931AB1C804A8500CC7002 /* libYPAMapLocation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libYPAMapLocation.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5D194961CF83AB100226912 /* AMapLocationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapLocationKit.framework; sourceTree = "<group>"; };
-		A5D194971CF83AB100226912 /* RCTAMapLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RCTAMapLocation.h; path = RCTAMap/RCTAMapLocation.h; sourceTree = "<group>"; };
-		A5D194981CF83AB100226912 /* RCTAMapLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RCTAMapLocation.m; path = RCTAMap/RCTAMapLocation.m; sourceTree = "<group>"; };
+		A5D194971CF83AB100226912 /* YPAMapLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YPAMapLocation.h; path = RCTAMap/YPAMapLocation.h; sourceTree = "<group>"; };
+		A5D194981CF83AB100226912 /* YPAMapLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YPAMapLocation.m; path = RCTAMap/YPAMapLocation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,8 +47,8 @@
 			isa = PBXGroup;
 			children = (
 				A5D194951CF83AB100226912 /* AMap */,
-				A5D194971CF83AB100226912 /* RCTAMapLocation.h */,
-				A5D194981CF83AB100226912 /* RCTAMapLocation.m */,
+				A5D194971CF83AB100226912 /* YPAMapLocation.h */,
+				A5D194981CF83AB100226912 /* YPAMapLocation.m */,
 				A52931AC1C804A8500CC7002 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -126,7 +126,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5D1949A1CF83AB100226912 /* RCTAMapLocation.m in Sources */,
+				A5D1949A1CF83AB100226912 /* YPAMapLocation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

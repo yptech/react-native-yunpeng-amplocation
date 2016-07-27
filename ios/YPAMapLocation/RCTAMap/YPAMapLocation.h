@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "RCTBridgeModule.h"
 
-@interface RCTAMapLocation : NSObject <RCTBridgeModule>
+@interface YPAMapLocation : NSObject <RCTBridgeModule>
 
 @end
