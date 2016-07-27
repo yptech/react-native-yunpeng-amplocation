@@ -133,10 +133,11 @@ public class YPAmapLocationModule extends ReactContextBaseJavaModule {
      * 停止监听,并将sqlite中的数据上传,并清空
      */
     @ReactMethod
-    public void stopObserving() {
+    public void stopObserving(Promise promise) {
         stopBackgroundService();
         PostLocationService postLocationService = new PostLocationService(getReactApplicationContext(), mConfig);
         postLocationService.postLocation();
+        promise.resolve(true);
     }
 
     /**

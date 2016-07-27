@@ -75,8 +75,8 @@ static NSDictionary<NSString *, id> *KKRCTPositionError(KKRCTPositionErrorCode c
 
 @interface KKLocationRequest : NSObject
 
-@property (nonatomic, copy) RCTResponseSenderBlock successBlock;
-@property (nonatomic, copy) RCTResponseSenderBlock errorBlock;
+@property (nonatomic, copy) RCTPromiseResolveBlock resolve;
+@property (nonatomic, copy) RCTPromiseRejectBlock reject;
 @property (nonatomic, assign) KKLocationOptions options;
 @property (nonatomic, strong) NSTimer *timeoutTimer;
 
@@ -142,7 +142,7 @@ RCT_EXPORT_MODULE(YYAMapLocationObserver);
 {
     KKLocationRequest *request = timer.userInfo;
     NSString *message = [NSString stringWithFormat: @"Unable to fetch location within %zds.", (NSInteger)(timer.timeInterval * 1000.0)];
-    request.errorBlock(@[KKRCTPositionError(KKRCTPositionErrorTimeout, message)]);
+    request.reject(@[KKRCTPositionError(KKRCTPositionErrorTimeout, message)]);
     [_pendingRequests removeObject:request];
     
     // Stop updating if no pending requests
@@ -153,7 +153,7 @@ RCT_EXPORT_MODULE(YYAMapLocationObserver);
 
 #pragma mark - Public API
 
-RCT_EXPORT_METHOD(startObserving:(KKLocationOptions)options)
+RCT_EXPORT_METHOD(startObserving, options:(KKLocationOptions)options resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     [self checkLocationConfig];
     
@@ -167,9 +167,10 @@ RCT_EXPORT_METHOD(startObserving:(KKLocationOptions)options)
     [_locationManager setPausesLocationUpdatesAutomatically:NO];
     [self beginLocationUpdatesWithDesiredAccuracy:_observerOptions.accuracy];
     _observingLocation = YES;
+    resolve(YES);
 }
 
-RCT_EXPORT_METHOD(stopObserving)
+RCT_EXPORT_METHOD(stopObserving, resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     // Stop observing
     _observingLocation = NO;
@@ -177,36 +178,29 @@ RCT_EXPORT_METHOD(stopObserving)
     // Stop updating if no pending requests
     if (_pendingRequests.count == 0) {
         [_locationManager stopUpdatingLocation];
+    	resolve(YES);
     }
 }
 
-RCT_EXPORT_METHOD(getCurrentPosition:(KKLocationOptions)options
-                  withSuccessCallback:(RCTResponseSenderBlock)successBlock
-                  errorCallback:(RCTResponseSenderBlock)errorBlock)
+RCT_EXPORT_METHOD(getCurrentPosition, options:(KKLocationOptions)options
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     [self checkLocationConfig];
-    
-    if (!successBlock) {
-        RCTLogError(@"%@.getCurrentPosition called with nil success parameter.", [self class]);
-        return;
-    }
-    
+    _resolve = resovle;
+    _reject = reject;
     if (![CLLocationManager locationServicesEnabled]) {
-        if (errorBlock) {
-            errorBlock(@[
-                         KKRCTPositionError(KKRCTPositionErrorUnavailable, @"Location services disabled.")
-                         ]);
-            return;
-        }
+    	reject(@[
+                 KKRCTPositionError(KKRCTPositionErrorUnavailable, @"Location services disabled.")
+                 ]);
+     	return;
     }
     
     if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied) {
-        if (errorBlock) {
-            errorBlock(@[
-                         KKRCTPositionError(KKRCTPositionErrorDenied, nil)
-                         ]);
-            return;
-        }
+        reject(@[
+                 KKRCTPositionError(KKRCTPositionErrorDenied, nil)
+                 ]);
+        return;
     }
     
     // Check if previous recorded location exists and is good enough
@@ -215,14 +209,14 @@ RCT_EXPORT_METHOD(getCurrentPosition:(KKLocationOptions)options
         [_lastLocationEvent[@"coords"][@"accuracy"] doubleValue] <= options.accuracy) {
         
         // Call success block with most recent known location
-        successBlock(@[_lastLocationEvent]);
+        resolve(@[_lastLocationEvent]);
         return;
     }
     
     // Create request
     KKLocationRequest *request = [KKLocationRequest new];
-    request.successBlock = successBlock;
-    request.errorBlock = errorBlock ?: ^(NSArray *args){};
+    request.resolve = resolve;
+    request.reject = reject;
     request.options = options;
     request.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:options.timeout
                                                             target:self
@@ -267,11 +261,13 @@ RCT_EXPORT_METHOD(getCurrentPosition:(KKLocationOptions)options
     if (_observingLocation) {
         [_bridge.eventDispatcher sendDeviceEventWithName:@"yyAMapLocationDidChange"
                                                     body:_lastLocationEvent];
+    } else {
+    	_resovle(_lastLocationEvent);
     }
     
     // Fire all queued callbacks
     for (KKLocationRequest *request in _pendingRequests) {
-        request.successBlock(@[_lastLocationEvent]);
+        request.resolve(@[_lastLocationEvent]);
         [request.timeoutTimer invalidate];
     }
     [_pendingRequests removeAllObjects];
@@ -314,7 +310,7 @@ RCT_EXPORT_METHOD(getCurrentPosition:(KKLocationOptions)options
     
     // Fire all queued error callbacks
     for (KKLocationRequest *request in _pendingRequests) {
-        request.errorBlock(@[jsError]);
+        request.reject(@[jsError]);
         [request.timeoutTimer invalidate];
     }
     [_pendingRequests removeAllObjects];
