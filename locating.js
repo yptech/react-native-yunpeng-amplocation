@@ -7,18 +7,18 @@ import {
 
 export default class Locating extends Component {
 	startObserving() {
-		NativeModules.YPAmapLocation.startObserving();
+		return NativeModules.YPAmapLocation.startObserving();
 	}
 	
 	stopObserving() {
-		NativeModules.YPAmapLocation.stopObserving();
+		return NativeModules.YPAmapLocation.stopObserving();
 	}
 	
-	getCurrentPosition(options, success, error) {
-		NativeModules.YPAmapLocation.getCurrentPosition(options, success, error);
+	getCurrentPosition(options) {
+		return NativeModules.YPAmapLocation.getCurrentPosition(options);
 	}
 	
 	configure(options) {
-		
+		this.options = options;
 	}
 }
