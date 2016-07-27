@@ -25,7 +25,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		A52931AB1C804A8500CC7002 /* libRCTAMapLocating.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRCTAMapLocating.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A52931AB1C804A8500CC7002 /* libYPAMapLocation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libYPAMapLocation.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5D194961CF83AB100226912 /* AMapLocationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapLocationKit.framework; sourceTree = "<group>"; };
 		A5D194971CF83AB100226912 /* RCTAMapLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RCTAMapLocation.h; path = RCTAMap/RCTAMapLocation.h; sourceTree = "<group>"; };
 		A5D194981CF83AB100226912 /* RCTAMapLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RCTAMapLocation.m; path = RCTAMap/RCTAMapLocation.m; sourceTree = "<group>"; };
@@ -56,7 +56,7 @@
 		A52931AC1C804A8500CC7002 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A52931AB1C804A8500CC7002 /* libRCTAMapLocating.a */,
+				A52931AB1C804A8500CC7002 /* libYPAMapLocation.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -73,9 +73,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A52931AA1C804A8500CC7002 /* RCTAMapLocating */ = {
+		A52931AA1C804A8500CC7002 /* YPAMapLocation */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A52931B41C804A8500CC7002 /* Build configuration list for PBXNativeTarget "RCTAMapLocating" */;
+			buildConfigurationList = A52931B41C804A8500CC7002 /* Build configuration list for PBXNativeTarget "YPAMapLocation" */;
 			buildPhases = (
 				A52931A71C804A8500CC7002 /* Sources */,
 				A52931A81C804A8500CC7002 /* Frameworks */,
@@ -85,9 +85,9 @@
 			);
 			dependencies = (
 			);
-			name = RCTAMapLocating;
+			name = YPAMapLocation;
 			productName = RCTAMap;
-			productReference = A52931AB1C804A8500CC7002 /* libRCTAMapLocating.a */;
+			productReference = A52931AB1C804A8500CC7002 /* libYPAMapLocation.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -104,7 +104,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A52931A61C804A8500CC7002 /* Build configuration list for PBXProject "RCTAMapLocating" */;
+			buildConfigurationList = A52931A61C804A8500CC7002 /* Build configuration list for PBXProject "YPAMapLocation" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -116,7 +116,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A52931AA1C804A8500CC7002 /* RCTAMapLocating */,
+				A52931AA1C804A8500CC7002 /* YPAMapLocation */,
 			);
 		};
 /* End PBXProject section */
@@ -234,7 +234,7 @@
 					"$(PROJECT_DIR)/RCTAMap/AMap/AMapLocationKit.framework",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = RCTAMapLocating;
+				PRODUCT_NAME = YPAMapLocation;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -258,7 +258,7 @@
 					"$(PROJECT_DIR)/RCTAMap/AMap/AMapLocationKit.framework",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = RCTAMapLocating;
+				PRODUCT_NAME = YPAMapLocation;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -266,7 +266,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A52931A61C804A8500CC7002 /* Build configuration list for PBXProject "RCTAMapLocating" */ = {
+		A52931A61C804A8500CC7002 /* Build configuration list for PBXProject "YPAMapLocation" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A52931B21C804A8500CC7002 /* Debug */,
@@ -275,7 +275,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A52931B41C804A8500CC7002 /* Build configuration list for PBXNativeTarget "RCTAMapLocating" */ = {
+		A52931B41C804A8500CC7002 /* Build configuration list for PBXNativeTarget "YPAMapLocation" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A52931B51C804A8500CC7002 /* Debug */,
