@@ -1,9 +1,8 @@
 import {
-	NativeModules
+	NativeModules,
+	Platform,
+	DeviceEventEmitter,
 } from 'react-native';
-import {
-	Component
-} from 'react';
 
 let Locating = {
 	startObserving: function () {
@@ -20,6 +19,10 @@ let Locating = {
 
 	configure: function (options) {
 		this.options = options;
-	},
+		if (Platform.OS !== 'ios') {
+			NativeModules.YPAMapLocation.configure(options);
+		}
+	}
+	
 }
 export default Locating;

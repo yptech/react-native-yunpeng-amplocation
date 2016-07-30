@@ -153,24 +153,30 @@ RCT_EXPORT_MODULE(YPAMapLocation);
 
 #pragma mark - Public API
 
-RCT_REMAP_METHOD(startObserving, startObserving:(KKLocationOptions)options resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_REMAP_METHOD(startObserving, startObserving:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     [self checkLocationConfig];
     
     // Select best options
-    _observerOptions = options;
-    for (KKLocationRequest *request in _pendingRequests) {
-        _observerOptions.accuracy = MIN(_observerOptions.accuracy, request.options.accuracy);
+//    _observerOptions = options;
+//    for (KKLocationRequest *request in _pendingRequests) {
+//        _observerOptions.accuracy = MIN(_observerOptions.accuracy, request.options.accuracy);
+//    }
+    
+    if (!_locationManager) {
+        _locationManager = [AMapLocationManager new];
+        _locationManager.distanceFilter = _observerOptions.distanceFilter;
+        _locationManager.delegate = self;
     }
     
     [_locationManager setAllowsBackgroundLocationUpdates:YES];
     [_locationManager setPausesLocationUpdatesAutomatically:NO];
-    [self beginLocationUpdatesWithDesiredAccuracy:_observerOptions.accuracy];
+    [self beginLocationUpdatesWithDesiredAccuracy:0.0];
     _observingLocation = YES;
     resolve(nil);
 }
 
-RCT_REMAP_METHOD(stopObserving, resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_REMAP_METHOD(stopObserving, stopObserving:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     // Stop observing
     _observingLocation = NO;
@@ -253,7 +259,7 @@ RCT_REMAP_METHOD(getCurrentPosition, getCurrentPosition:(KKLocationOptions)optio
     
     // Send event
     if (_observingLocation) {
-        [_bridge.eventDispatcher sendDeviceEventWithName:@"yyAMapLocationDidChange"
+        [_bridge.eventDispatcher sendDeviceEventWithName:@"locationDidChange"
                                                     body:_lastLocationEvent];
     }
     
@@ -296,7 +302,7 @@ RCT_REMAP_METHOD(getCurrentPosition, getCurrentPosition:(KKLocationOptions)optio
     
     // Send event
     if (_observingLocation) {
-        [_bridge.eventDispatcher sendDeviceEventWithName:@"yyAMapLocationError"
+        [_bridge.eventDispatcher sendDeviceEventWithName:@"locationError"
                                                     body:jsError];
     }
     

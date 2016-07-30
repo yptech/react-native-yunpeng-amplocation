@@ -28,7 +28,7 @@ import java.util.HashMap;
  */
 public class YPAmapLocationModule extends ReactContextBaseJavaModule {
 
-    protected static final String TAG = "YPAmapLocation";
+    protected static final String TAG = "YPAMapLocation";
 
     private AMapLocationClient mClient;
     private Config mConfig;
@@ -41,7 +41,7 @@ public class YPAmapLocationModule extends ReactContextBaseJavaModule {
 
     @Override
     public String getName() {
-        return "YPAmapLocation";
+        return "YPAMapLocation";
     }
 
     /**
@@ -135,8 +135,8 @@ public class YPAmapLocationModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void stopObserving(Promise promise) {
         stopBackgroundService();
-        PostLocationService postLocationService = new PostLocationService(getReactApplicationContext(), mConfig);
-        postLocationService.postLocation();
+//        PostLocationService postLocationService = new PostLocationService(getReactApplicationContext(), mConfig);
+//        postLocationService.postLocation();
         promise.resolve(true);
     }
 

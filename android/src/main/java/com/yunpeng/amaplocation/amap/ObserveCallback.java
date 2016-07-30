@@ -1,16 +1,11 @@
 package com.yunpeng.amaplocation.amap;
 
-import android.content.Context;
-import android.util.Log;
-
 import com.amap.api.location.AMapLocation;
-import com.facebook.react.bridge.Callback;
-import com.facebook.react.bridge.Promise;
-import com.facebook.react.bridge.ReactApplicationContext;
 import com.yunpeng.amaplocation.sqlite.BackgroundLocation;
 import com.yunpeng.amaplocation.sqlite.LocationDao;
 
-import java.util.Date;
+import android.content.Context;
+import android.util.Log;
 
 /**
  * Created by m2mbob on 16/7/23.
