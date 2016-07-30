@@ -20,7 +20,7 @@ let Locating = {
 	configure: function (options) {
 		this.options = options;
 		if (Platform.OS !== 'ios') {
-			NativeModules.YPAMapLocation.configure(options);
+			return NativeModules.YPAMapLocation.configure(options);
 		}
 	}
 	
