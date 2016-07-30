@@ -7,10 +7,10 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
+import com.yunpeng.amaplocation.ContextHolder;
 import com.yunpeng.amaplocation.amap.AmapLocationCallback;
 import com.yunpeng.amaplocation.amap.YPAmapLocationListener;
 import com.yunpeng.amaplocation.sqlite.Config;
-import com.yunpeng.amaplocation.sqlite.LocationDao;
 import com.yunpeng.amaplocation.util.AmapUtils;
 
 import android.app.Notification;
@@ -31,7 +31,7 @@ public class LocationService extends Service implements AmapLocationCallback {
 
 	private static final String TAG = "LocationService";
 	private AMapLocationClient oClient;
-	// private LocationDao dao;
+//	private LocationDao dao;
 	private Config config;
 
 	@Nullable
@@ -43,7 +43,7 @@ public class LocationService extends Service implements AmapLocationCallback {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		// dao = new LocationDao(this);
+//		dao = new LocationDao(this);
 	}
 
 	@Override
@@ -112,14 +112,14 @@ public class LocationService extends Service implements AmapLocationCallback {
 
 	@Override
 	public void onSuccess(AMapLocation aMapLocation) {
-		ReactApplicationContext context = (ReactApplicationContext) this.getApplicationContext();
+		ReactApplicationContext context = ContextHolder.getReactApplicationContext();
 		context.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("locationDidChange",
 				AmapUtils.locationToMap(aMapLocation));
 	}
 
 	@Override
 	public void onFailure(AMapLocation aMapLocation) {
-		ReactApplicationContext context = (ReactApplicationContext) this.getApplicationContext();
+		ReactApplicationContext context = ContextHolder.getReactApplicationContext();
 		context.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("locationError",
 				AmapUtils.locationToMap(aMapLocation));
 	}

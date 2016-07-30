@@ -37,6 +37,7 @@ public class YPAmapLocationModule extends ReactContextBaseJavaModule {
 
     public YPAmapLocationModule(ReactApplicationContext reactContext) {
         super(reactContext);
+        ContextHolder.context = reactContext;
     }
 
     @Override
