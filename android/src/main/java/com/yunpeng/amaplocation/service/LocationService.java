@@ -52,10 +52,10 @@ public class LocationService extends Service implements AmapLocationCallback {
 
 		if (intent.hasExtra("config")) {
 			config = (Config) intent.getParcelableExtra("config");
-		} else {
+		}
+		if (config == null) {
 			config = new Config();
 		}
-
 		AMapLocationClientOption option = AmapUtils.getOptions(config, false);
 		oClient = new AMapLocationClient(this);
 		oClient.setLocationOption(option);

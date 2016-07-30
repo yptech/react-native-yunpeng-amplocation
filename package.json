@@ -18,8 +18,5 @@
     "android"
   ],
   "author": "m2mbob",
-  "license": "Apache-2.0",
-  "devDependencies": {
-    "react-native": "^0.25.0"
-  }
+  "license": "Apache-2.0"
 }

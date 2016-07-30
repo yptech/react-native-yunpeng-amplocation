@@ -57,7 +57,7 @@ public class AmapUtils {
     public static AMapLocationClientOption getOptions(Config options, final boolean once) {
         AMapLocationClientOption option = new AMapLocationClientOption();
         option.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);   //高精度定位,采取GPS和网络定位结果中比较高的
-        if(options.getInterval() != null){
+        if (options.getInterval() != null){
             option.setInterval(options.getInterval());
         }
         option.setOnceLocation(once);
