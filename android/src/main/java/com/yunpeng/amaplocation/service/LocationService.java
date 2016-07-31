@@ -67,6 +67,7 @@ public class LocationService extends Service implements AmapLocationCallback {
 			NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
 			builder.setContentTitle(config.getNotificationTitle());
 			builder.setContentText(config.getNotificationText());
+			setClickEvent(builder);
 
 			Notification notification = builder.build();
 			notification.flags |= Notification.FLAG_ONGOING_EVENT | Notification.FLAG_FOREGROUND_SERVICE
@@ -96,18 +97,6 @@ public class LocationService extends Service implements AmapLocationCallback {
 				PendingIntent.FLAG_CANCEL_CURRENT);
 
 		return builder.setContentIntent(contentIntent);
-	}
-
-	private Integer parseNotificationIconColor(String color) {
-		int iconColor = 0;
-		if (color != null) {
-			try {
-				iconColor = Color.parseColor(color);
-			} catch (IllegalArgumentException e) {
-				Log.e(TAG, "couldn't parse color from android options");
-			}
-		}
-		return iconColor;
 	}
 
 	@Override
