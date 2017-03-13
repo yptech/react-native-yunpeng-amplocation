@@ -168,7 +168,7 @@ RCT_REMAP_METHOD(startObserving, startObserving:(RCTPromiseResolveBlock)resolve 
         _locationManager.distanceFilter = _observerOptions.distanceFilter;
         _locationManager.delegate = self;
     }
-    
+    [_locationManager setLocationTimeout:5];
     [_locationManager setAllowsBackgroundLocationUpdates:YES];
     [_locationManager setPausesLocationUpdatesAutomatically:NO];
     [self beginLocationUpdatesWithDesiredAccuracy:0.0];
