@@ -10,9 +10,9 @@
 #import <AMapLocationKit/AMapLocationKit.h>
 
 #import "YPAMapLocation.h"
-#import "RCTBridge.h"
-#import "RCTConvert.h"
-#import "RCTEventDispatcher.h"
+#import <React/RCTBridge.h>
+#import <React/RCTConvert.h>
+#import <React/RCTEventDispatcher.h>
 
 typedef NS_ENUM(NSInteger, KKRCTPositionErrorCode) {
     KKRCTPositionErrorDenied = 1,
